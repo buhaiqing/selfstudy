@@ -1,5 +1,6 @@
 def list = ['A','B','C']
-def addit = list.&add
+// Groovy method pointer
+def addit = list.&add 
 
 addit 'D'
 

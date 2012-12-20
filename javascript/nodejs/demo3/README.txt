@@ -1,0 +1,1 @@
+use grunt-jasmine-runner to execute jasmine test cases.

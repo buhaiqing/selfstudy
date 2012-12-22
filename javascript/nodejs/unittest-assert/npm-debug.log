@@ -1,0 +1,53 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   '-g',
+1 verbose cli   'jsonp' ]
+2 info using npm@1.1.66
+3 info using node@v0.8.15
+4 verbose node symlink C:\Program Files\nodejs\\node.exe
+5 verbose read json C:\Users\buha\AppData\Roaming\npm\package.json
+6 verbose read json C:\Users\buha\AppData\Roaming\npm\package.json
+7 verbose cache add [ 'jsonp', null ]
+8 silly cache add name=undefined spec="jsonp" args=["jsonp",null]
+9 verbose parsed url { pathname: 'jsonp', path: 'jsonp', href: 'jsonp' }
+10 silly lockFile def0b140-jsonp jsonp
+11 verbose lock jsonp C:\Users\buha\AppData\Roaming\npm-cache\def0b140-jsonp.lock
+12 silly lockFile def0b140-jsonp jsonp
+13 verbose addNamed [ 'jsonp', '' ]
+14 verbose addNamed [ null, '' ]
+15 silly lockFile d0b5ed2d-jsonp jsonp@
+16 verbose lock jsonp@ C:\Users\buha\AppData\Roaming\npm-cache\d0b5ed2d-jsonp.lock
+17 silly addNameRange { name: 'jsonp', range: '', hasData: false }
+18 verbose url raw jsonp
+19 verbose url resolving [ 'https://registry.npmjs.org/', './jsonp' ]
+20 verbose url resolved https://registry.npmjs.org/jsonp
+21 info trying registry request attempt 1 at 09:49:34
+22 http GET https://registry.npmjs.org/jsonp
+23 info retry will retry, error on last attempt: Error: tunneling socket could not be established, cause=getaddrinfo EAGAIN
+24 info trying registry request attempt 2 at 09:49:45
+25 http GET https://registry.npmjs.org/jsonp
+26 info retry will retry, error on last attempt: Error: tunneling socket could not be established, cause=getaddrinfo EAGAIN
+27 info trying registry request attempt 3 at 09:50:46
+28 http GET https://registry.npmjs.org/jsonp
+29 silly lockFile d0b5ed2d-jsonp jsonp@
+30 error Error: tunneling socket could not be established, cause=getaddrinfo EAGAIN
+30 error     at ClientRequest.onError (C:\Program Files\nodejs\node_modules\npm\node_modules\request\tunnel.js:161:17)
+30 error     at ClientRequest.g (events.js:192:14)
+30 error     at ClientRequest.EventEmitter.emit (events.js:96:17)
+30 error     at Socket.socketErrorListener (http.js:1331:9)
+30 error     at Socket.EventEmitter.emit (events.js:96:17)
+30 error     at Socket.connect.require.lookup.addressType (net.js:698:16)
+30 error     at process.startup.processNextTick.process._tickCallback (node.js:244:9)
+31 error If you need help, you may report this log at:
+31 error     <http://github.com/isaacs/npm/issues>
+31 error or email it to:
+31 error     <npm-@googlegroups.com>
+32 error System Windows_NT 6.1.7601
+33 error command "C:\\Program Files\\nodejs\\\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "-g" "jsonp"
+34 error cwd c:\opensource\git\buhaiqing\selfstudy\javascript\nodejs\unittest-assert
+35 error node -v v0.8.15
+36 error npm -v 1.1.66
+37 error code ECONNRESET
+38 verbose exit [ 1, true ]

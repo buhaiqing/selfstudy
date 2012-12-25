@@ -1,10 +1,11 @@
 var wrench = require('./lib/wrench'),
     path = require('path'),
+    fs = require("fs"),
     sys = require('sys');
     
 
 desc("default task");
-task('default',['init','google-closure','lint','csslint','jsduck'], function(){
+task('default',['init','google-closure','lint','csslint','jsduck','less'], function(){
    // doLast
    sys.puts("Complete my jobs in jake. Cheers!");
 });
@@ -28,6 +29,20 @@ task('google-closure',function(){
      // sys.puts(cmd);
     jake.exec([cmd]);
   }
+  complete();
+});
+
+// npm install -g less
+desc("use lessc to pre-compile the CSS resoures");
+task('less', function(){
+  var ex = jake.createExec(['less style-less.css'], {printStdout: true});
+  ex.addListener('error', function (msg, code) {
+  });
+  ex.addListener('stdout', function (msg, code) {
+    fs.writeFileSync('style.css', msg);
+  });
+  ex.run();
+  
   complete();
 });
 

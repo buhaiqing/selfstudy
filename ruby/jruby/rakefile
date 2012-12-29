@@ -1,0 +1,12 @@
+task :default => [:parallel]
+multitask :parallel => [:test1, :test2]
+
+desc "test1"
+task :test1 do
+	puts "test1"
+end
+
+desc "test2"
+task :test2 do
+	puts "test2"
+end

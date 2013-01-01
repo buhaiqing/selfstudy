@@ -35,7 +35,7 @@ task('google-closure',function(){
 // npm install -g less
 desc("use lessc to pre-compile the CSS resoures");
 task('less', function(){
-  var ex = jake.createExec(['less style-less.css'], {printStdout: true});
+  var ex = jake.createExec(['less style-less.less'], {printStdout: true});
   ex.addListener('error', function (msg, code) {
   });
   ex.addListener('stdout', function (msg, code) {

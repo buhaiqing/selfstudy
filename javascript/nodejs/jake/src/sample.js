@@ -3,7 +3,7 @@
   @author: Bu Hai-Qing( Andy )
   Function: test
 */
-var test = function	(){
+function test	(){
 	console.log("it is a test");
 }
 

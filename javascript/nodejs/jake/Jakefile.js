@@ -5,7 +5,7 @@ var wrench = require('./lib/wrench'),
     
 
 desc("default task");
-task('default',['init','google-closure','lint','csslint','jsduck','less'], function(){
+task('default',['init','google-closure','less','lint','csslint','jsduck'], function(){
    // doLast
    sys.puts("Complete my jobs in jake. Cheers!");
 });

@@ -61,6 +61,7 @@ Class1.call(class2);
 // class2.name = 'test1';
 
 class2.showTxt();
+
 	
 
 

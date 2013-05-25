@@ -1,0 +1,1 @@
+mvn install:install-file -DgroupId=org.jtestr -DartifactId=jruby-complete -Dversion=r1c672b495cfd204421f4a7aed17f6135e730a3b2 -Dpackaging=jar -Dfile=jruby-complete-r1c672b495cfd204421f4a7aed17f6135e730a3b2.jar

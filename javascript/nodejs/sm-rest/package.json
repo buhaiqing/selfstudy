@@ -1,0 +1,16 @@
+{
+  "name": "sm-rest",
+  "version": "1.0.0",
+  "description": "New rest library for HP Service Manager",
+  "scripts": {
+    "test": "test"
+  },
+  "dependencies":{
+    "chai": "> 1.0",
+	"mocha" : "> 1.0",
+	"underscore" : "> 1.4" 
+  },
+  "repository": "",
+  "author": "Bu Hai-Qing (hai-qing.bu@hp.com)",
+  "license": "MIT"
+}

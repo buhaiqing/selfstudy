@@ -18,3 +18,13 @@ class Good{
 obj = new Good()
 obj?.method1()
 obj?.method2()
+
+// OR	
+class Good1{}
+Good1.mixin Class2
+
+obj1 = new Good1()
+obj1.metaClass.mixin Class1
+
+obj1.method1()
+obj1.method2()

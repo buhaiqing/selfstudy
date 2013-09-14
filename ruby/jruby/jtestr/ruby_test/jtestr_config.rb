@@ -1,0 +1,3 @@
+add_common_classpath true
+rspec_formatter "e"
+unify_rspec_output false

@@ -9,12 +9,15 @@ checker.run()
 
  class checkNamingConventionUtil  {
    def path
+   def findissue
    public checkNamingConventionUtil(String _path){
     path = _path
+    findissue = false
    }
 
    void run()
    {
+    
     def dir = new File(path)
 
     File f = new File("checkNamingConvention.log")
@@ -33,9 +36,15 @@ checker.run()
         if(it.name =~ /.*_?QCTP1E_?.*/)
            return;
         pw.println( it.canonicalPath)
+        findissue = true
      }
 
      pw.close()
+     
+     if(findissue)
+     {
+        println "there are issue found in this scan. Please check with the log for detail."
+     }
    } 
 
  }

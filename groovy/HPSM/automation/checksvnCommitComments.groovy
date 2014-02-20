@@ -18,6 +18,7 @@ enddate = args[1]
 
 projs = [
 [project:"In-tool Reporting" , logfile:"intool.log",scan_path:"NewFeature\\Reporting"],
+[project:"UCMDB in 940" , logfile:"UCMDB_sm940.log",scan_path:"Integration\\UCMDB\\SM940"],
 [project:"PD Request" , logfile:"pd-request.log",scan_path:"ApplicationTests\\RequestManagement"]
 ]
 
@@ -47,7 +48,7 @@ projs.each{
     }
     pw.close()
     if(issue_list.size != 0){
-      println "there are issues found on ** ${project} ** project.please check log file **${logfile}** for detailn"
+      println "there are issues found on ** ${project} ** project.please check log file **${logfile}** for detail"
     }
 }
 

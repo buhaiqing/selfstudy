@@ -50,7 +50,6 @@ def insert_qcid(source,casename)
         if(line =~ /TestFrame/){
             line += 
 """
-    attr :qc_id, :pd_tag
     def initialize
       @qc_id= "${casename}"
       @pd_tag=[]

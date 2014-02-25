@@ -17,9 +17,9 @@ startdate = args[0]
 enddate = args[1]
 
 projs = [
-[project:"In-tool Reporting" , logfile:"intool.log",scan_path:"NewFeature\\Reporting"],
-[project:"UCMDB in 940" , logfile:"UCMDB_sm940.log",scan_path:"Integration\\UCMDB\\SM940"],
-[project:"PD Request" , logfile:"pd-request.log",scan_path:"ApplicationTests\\RequestManagement"]
+[project:"In-tool Reporting" , logfile:"intool.log",scan_path:"./NewFeature/Reporting"],
+[project:"UCMDB in 940" , logfile:"UCMDB_sm940.log",scan_path:"./Integration/UCMDB/SM940"],
+[project:"PD Request" , logfile:"pd-request.log",scan_path:"./ApplicationTests/RequestManagement"]
 ]
 withPool 16,{
   projs.eachParallel{
@@ -33,7 +33,8 @@ withPool 16,{
       // svn command to get xml format log entries
       command = "svn log -r {${startdate}}:{${enddate}} --xml  ${path}"
       //println "command is ${command}"
-      text =  command.execute().text
+      scriptDir = new File(getClass().protectionDomain.codeSource.location.path).parent
+      text =  command.execute(null , new File(scriptDir)).text
       // parse the xml output and filter out the result set that follow our rules
       def log  = new XmlSlurper().parseText(text)
       def issue_list = log.logentry.grep{

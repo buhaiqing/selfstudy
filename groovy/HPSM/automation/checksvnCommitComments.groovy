@@ -17,10 +17,18 @@ startdate = args[0]
 enddate = args[1]
 
 projs = [
-[project:"In-tool Reporting" , logfile:"intool.log",scan_path:"./NewFeature/Reporting"],
-[project:"UCMDB in 940" , logfile:"UCMDB_sm940.log",scan_path:"./Integration/UCMDB/SM940"],
-[project:"PD Request" , logfile:"pd-request.log",scan_path:"./ApplicationTests/RequestManagement"]
+        [project: "Case Exchange", logfile: "case_exchange_namingconvention.log", scan_path: "./NewFeature/Applications/CaseExchange"],
+        [project: "UCMDB in 940", logfile: "UCMDB_sm940_namingconvention.log", scan_path: "./Integration/UCMDB/SM940"],
+        //[project: "PDFramework in 940", logfile: "PDFramework_namingconvention.log", scan_path: ""],
+        //        [project: "NativeRC", logfile: "nativeRC_namingconvention.log", scan_path: ""],
+        //        [project: "SMS", logfile: "sms_namingconvention.log", scan_path: ""],
+        [project: "In-tool Reporting", logfile: "intool_namingconvention.log", scan_path: "./NewFeature/Reporting"],
+        //        [project: "IDOL", logfile: "idol_namingconvention.log", scan_path: ""],
+        //        [project: "Mobility", logfile: "mobiltiy_namingconvention.log", scan_path: ""],
+        [project: "PD Request", logfile: "pd-request_namingconvention.log", scan_path: "./ApplicationTests/RequestManagement"]
+
 ]
+
 withPool 16,{
   projs.eachParallel{
       def project = it['project']

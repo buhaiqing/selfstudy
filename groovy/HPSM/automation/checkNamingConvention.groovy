@@ -10,9 +10,16 @@ def ant = new AntBuilder()
 ant.delete(file: '*.log')
 
 projs = [
-        [project: "In-tool Reporting", logfile: "intool_namingconvention.log", scan_path: "./NewFeature/Reporting"],
+        [project: "Case Exchange", logfile: "case_exchange_namingconvention.log", scan_path: "./NewFeature/Applications/CaseExchange"],
         [project: "UCMDB in 940", logfile: "UCMDB_sm940_namingconvention.log", scan_path: "./Integration/UCMDB/SM940"],
+        //[project: "PDFramework in 940", logfile: "PDFramework_namingconvention.log", scan_path: ""],
+        //        [project: "NativeRC", logfile: "nativeRC_namingconvention.log", scan_path: ""],
+        //        [project: "SMS", logfile: "sms_namingconvention.log", scan_path: ""],
+        [project: "In-tool Reporting", logfile: "intool_namingconvention.log", scan_path: "./NewFeature/Reporting"],
+        //        [project: "IDOL", logfile: "idol_namingconvention.log", scan_path: ""],
+//        [project: "Mobility", logfile: "mobiltiy_namingconvention.log", scan_path: ""],
         [project: "PD Request", logfile: "pd-request_namingconvention.log", scan_path: "./ApplicationTests/RequestManagement"]
+
 ]
 
 projs.each {
@@ -58,11 +65,22 @@ class checkNamingConventionUtil
         )
                 {
                     def name = it.name
+
                     if (name.contains("constants") || name.contains("_common") ||
                             name.contains("Constant"))
                     {
                         return
-                    };
+                    }
+                    else
+                    {
+                        if ( it.canonicalPath.tokenize(File.separator).any() {  str ->
+                            str == 'lib'
+                        })
+                        {
+                            return
+                        }
+
+                    }
 
                     if (it.name=~/.*_?QCTP1E_?.*/)
                     {

@@ -66,11 +66,13 @@ class SvnCommitChecker
             }
             else
             {
-                def _link = m[0].toString()
-                def test_obj = new ReviewLinkStatusChecker(link: _link)
-                if (test_obj.check())
-                {
-                    issue_list2 << it
+                m.each { matcher ->
+                    def _link = matcher.toString()
+                    def test_obj = new ReviewLinkStatusChecker(link: _link)
+                    if (test_obj.check())
+                    {
+                        issue_list2 << it
+                    }
                 }
             }
         }

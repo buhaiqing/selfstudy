@@ -13,6 +13,26 @@ if (args.length != 2)
     return
 }
 
+/**
+ * return true if find no noe ship the review ticket.
+ */
+class ReviewLinkStatusChecker
+{
+    def link
+
+    public boolean check()
+    {
+        def html = link.toURL().text
+        if (!html.contains('<div class="shipit">'))
+        {
+            println "No one ship the review ticket at ${link}"
+            return true;
+        }
+        return false;
+    }
+}
+
+
 class SvnCommitChecker
 {
     def project, logfile, path
@@ -31,18 +51,50 @@ class SvnCommitChecker
         //println text
         // parse the xml output and filter out the result set that follow our rules
         def log = new XmlSlurper().parseText(text)
-        def issue_list = log.logentry.grep {
+        def issue_list1 = []
+        def issue_list2 = []
+        def pattern = 'http://reviewboard.chn.hp.com/reviews/r'
+        def pattern1 = 'http://reviewboard.chn.hp.com/reviews/r/[0-9]+{4,5}'
+
+        log.logentry.each {
             def msg = it['msg']
-            def pattern = 'http://reviewboard.chn.hp.com/reviews/r'
-            !msg.toString().contains(pattern)
+            def m = msg=~pattern1
+
+            if (!msg.toString().contains(pattern))
+            {
+                issue_list1 << it
+            }
+            else
+            {
+                def _link = m[0].toString()
+                def test_obj = new ReviewLinkStatusChecker(link: _link)
+                if (test_obj.check())
+                {
+                    issue_list2 << it
+                }
+            }
         }
 
-        issue_list.each {
-            pw.printf "Author : %-10s; revision : %7s;\n", it['author'], it.@'revision'
+        if (issue_list1.size() != 0)
+        {
+            pw.println("========================================")
+            pw.println("change list that do not have review info")
+            issue_list1.each {
+                pw.printf "Author : %-10s; revision : %7s;\n", it['author'], it.@'revision'
 
+            }
         }
+        if (issue_list2.size() != 0)
+        {
+            pw.println("========================================")
+            pw.println("change list that no one ship the review ticket")
+            issue_list2.each {
+                pw.printf "Author : %-10s; revision : %7s;\n", it['author'], it.@'revision'
+            }
+        }
+
         pw.close()
-        if (issue_list.size != 0)
+        if (issue_list1.size != 0 || issue_list2.size() != 0)
         {
             println "there are issues found on ** ${project} ** project.please check log file **${logfile}** for detail"
         }

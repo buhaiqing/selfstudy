@@ -80,16 +80,17 @@ class SvnCommitChecker
         if (issue_list1.size() != 0)
         {
             pw.println("========================================")
-            pw.println("change list that do not have review info")
+            pw.println("change list that do not have review info(Total: ${issue_list1.size()})")
             issue_list1.each {
                 pw.printf "Author : %-10s; revision : %7s;\n", it['author'], it.@'revision'
 
             }
         }
+        
         if (issue_list2.size() != 0)
         {
             pw.println("========================================")
-            pw.println("change list that no one ship the review ticket")
+            pw.println("change list that no one ship the review ticket(Total: ${issue_list2.size()})")
             issue_list2.each {
                 pw.printf "Author : %-10s; revision : %7s;\n", it['author'], it.@'revision'
             }

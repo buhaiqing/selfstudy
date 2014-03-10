@@ -13,12 +13,17 @@ projs = [
         [project: "Case Exchange", logfile: "case_exchange_namingconvention.log", scan_path: "./NewFeature/Applications/CaseExchange"],
         [project: "UCMDB in 940", logfile: "UCMDB_sm940_namingconvention.log", scan_path: "./Integration/UCMDB/SM940"],
         //[project: "PDFramework in 940", logfile: "PDFramework_namingconvention.log", scan_path: ""],
-        //        [project: "NativeRC", logfile: "nativeRC_namingconvention.log", scan_path: ""],
+
         //        [project: "SMS", logfile: "sms_namingconvention.log", scan_path: ""],
         [project: "In-tool Reporting", logfile: "intool_namingconvention.log", scan_path: "./NewFeature/Reporting"],
         //        [project: "IDOL", logfile: "idol_namingconvention.log", scan_path: ""],
-//        [project: "Mobility", logfile: "mobiltiy_namingconvention.log", scan_path: ""],
-        [project: "PD Request", logfile: "pd-request_namingconvention.log", scan_path: "./ApplicationTests/RequestManagement"]
+        //        [project: "Mobility", logfile: "mobiltiy_namingconvention.log", scan_path: ""],
+        [project: "PD Request", logfile: "pd-request_namingconvention.log", scan_path: "./ApplicationTests/RequestManagement"],
+
+        // Native RC
+        [project: "Native RC", logfile: "native_calendar_namingconvention.log", scan_path: "./NewFeature/Applications/Calendar"],
+        [project: "Native RC", logfile: "native_calendar_nonpdpd_namingconvention.log", scan_path: "./NewFeature/Applications/Calendar_nonePD"],
+        [project: "Native RC", logfile: "native_timeperiodmgmt_namingconvention.log", scan_path: "./NewFeature/Applications/TimePeriodMgmt"]
 
 ]
 
@@ -71,9 +76,13 @@ class checkNamingConventionUtil
                     {
                         return
                     }
+                    else if (escape_some_special_cases(it))
+                    {
+                        return
+                    }
                     else
                     {
-                        if ( it.canonicalPath.tokenize(File.separator).any() {  str ->
+                        if (it.canonicalPath.tokenize(File.separator).any() { str ->
                             str == 'lib'
                         })
                         {
@@ -96,6 +105,20 @@ class checkNamingConventionUtil
         {
             println "there are issue found in this scan in project --${project} --. Please check with the log for detail."
         }
+    }
+
+    boolean escape_some_special_cases(file)
+    {
+        def name = file.name
+
+        // for Native RC
+        if (name == "CalendarAPITest.rb" ||
+                name == "CalendarFrameTest.rb")
+        {
+            return true
+        }
+
+        return false
     }
 
 }

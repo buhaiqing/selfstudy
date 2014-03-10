@@ -111,7 +111,12 @@ projs = [
         [project: "Case Exchange", logfile: "case_exchange_svncommit.log", scan_path: "NewFeature/Applications/CaseExchange"],
         [project: "UCMDB in 940", logfile: "UCMDB_sm940_svncommit.log", scan_path: "Integration/UCMDB/SM940"],
         //[project: "PDFramework in 940", logfile: "PDFramework_svncommit.log", scan_path: ""],
-        //        [project: "NativeRC", logfile: "nativeRC_svncommit.log", scan_path: ""],
+
+        // Native RC
+        [project: "Native RC", logfile: "native_calendar_svncommit.log", scan_path: "./NewFeature/Applications/Calendar"]  ,
+        [project: "Native RC", logfile: "native_calendar_nonpdpd_svncommit.log", scan_path: "./NewFeature/Applications/Calendar_nonePD"]  ,
+        [project: "Native RC", logfile: "native_timeperiodmgmt_svncommit.log", scan_path: "./NewFeature/Applications/TimePeriodMgmt"],
+
         //        [project: "SMS", logfile: "sms_svncommit.log", scan_path: ""],
         [project: "In-tool Reporting", logfile: "intool_svncommit.log", scan_path: "NewFeature/Reporting"],
         //        [project: "IDOL", logfile: "idol_svncommit.log", scan_path: ""],

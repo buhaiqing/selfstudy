@@ -6,8 +6,10 @@ dir.traverse(
          maxDepth:20
          )
 {
-	
-	count ++
+	if(it.name.contains(/QCTP1E/))
+	{
+	  count ++
+	}
 
 }
 

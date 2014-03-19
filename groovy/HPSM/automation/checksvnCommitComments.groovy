@@ -117,6 +117,10 @@ projs = [
         [project: "Native RC", logfile: "native_calendar_nonpdpd_svncommit.log", scan_path: "./NewFeature/Applications/Calendar_nonePD"]  ,
         [project: "Native RC", logfile: "native_timeperiodmgmt_svncommit.log", scan_path: "./NewFeature/Applications/TimePeriodMgmt"],
 
+        // HPE
+        [project: "HPE", logfile: "hpe_clienttest_svncommit.log", scan_path: "./ClientTests"],
+        [project: "HPE", logfile: "hpe_newfeature_client_svncommit.log", scan_path: "./NewFeature/Client"],
+
         //        [project: "SMS", logfile: "sms_svncommit.log", scan_path: ""],
         [project: "In-tool Reporting", logfile: "intool_svncommit.log", scan_path: "NewFeature/Reporting"],
         //        [project: "IDOL", logfile: "idol_svncommit.log", scan_path: ""],

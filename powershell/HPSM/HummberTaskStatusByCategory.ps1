@@ -33,7 +33,7 @@ $result = $res|%{
     $_.Group| %{
       $r.TotalCases +=$_.case_number
       $r.FailedCases += $_.failed
-      $r.PassingRatio = "" + (($r.TotalCases - $r.FailedCases)/$r.TotalCases)*100 + "%"
+      $r.PassingRatio = (($r.TotalCases - $r.FailedCases)/$r.TotalCases)*100 
     }
 
     $r

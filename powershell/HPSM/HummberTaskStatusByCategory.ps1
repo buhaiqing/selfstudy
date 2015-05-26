@@ -19,18 +19,18 @@ $_| Add-Member -MemberType NoteProperty -Name case_number $case_number
 $_| Add-Member -MemberType NoteProperty -Name passed% $passing_ratio
 
 $_
-} |Group-Object -Property pd,group
+} |Group-Object -Property group
 
 
 $result = $res|%{
     $r  = New-Object -TypeName psobject
-    $r| Add-Member -MemberType NoteProperty -Name "pd,group"  -Value ""
+    $r| Add-Member -MemberType NoteProperty -Name "group"  -Value ""
     $r | Add-Member -MemberType NoteProperty -Name "Task Count" -Value 0
     $r| Add-Member -MemberType NoteProperty -Name TotalCases -Value 0
     $r| Add-Member -MemberType NoteProperty -Name FailedCases -Value 0
     $r | Add-Member -MemberType NoteProperty -Name PassingRatio -Value 0
 
-    $r."pd,group" = $_.Name  | Out-String
+    $r."group" = $_.Name  | Out-String
     $r."Task Count" = $_.Count |Out-String
     $_.Group| %{
       $r.TotalCases +=$_.case_number
@@ -40,7 +40,7 @@ $result = $res|%{
 
     $r
 
-} 
+} |Sort-Object -Property FailedCases  
 
 $art_ratio = (($art_all - $art_failed)/$art_all) * 100
 echo  "========Summary Report for build $build_id=================="

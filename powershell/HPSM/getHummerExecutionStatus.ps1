@@ -16,4 +16,4 @@ $_| Add-Member -MemberType NoteProperty -Name case_number $case_number
 $_| Add-Member -MemberType NoteProperty -Name passed% $passing_ratio
 
 $_
-} |Sort-Object -Property group,category,sub_catetory|Out-GridView
+} |Sort-Object -Property group,category,sub_catetory,duration|Out-GridView

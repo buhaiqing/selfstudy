@@ -3,7 +3,7 @@
   [string] $Subject,
   [string] $Body
   )
-    Send-MailMessage -SmtpServer "smtp3.hp.com" -From "hai-qing.bu@hp.com" -Subject $Subject -Body $Body -To "bhq@hp.com"
+    Send-MailMessage -SmtpServer "smtp3.hp.com" -From "hai-qing.bu@hp.com" -Subject $Subject -Body $Body -To "PDL_SPM_DevOps@hp.com"
 }
 
  $response = invoke-restmethod http://16.186.72.7/api/machine_list|ConvertTo-Json |ConvertFrom-Json

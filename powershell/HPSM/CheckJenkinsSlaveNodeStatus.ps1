@@ -10,6 +10,7 @@ $data = irm http://smcm-jenkins-rhel7.hpswlabs.hp.com:8080/jenkins/computer/api/
 $list = @($data.computer|?{$_."offline" -eq 'true'})
 
  if ($list.Length -gt 0){
+  echo "send alert email"
   $message = $list|Select-Object -Property displayName,offlineCauseReason|ft -AutoSize|Out-String
   $subject = "[ACTION REQUIRED]Some of Jenkins nodes are not in good condition"
   $body =@"

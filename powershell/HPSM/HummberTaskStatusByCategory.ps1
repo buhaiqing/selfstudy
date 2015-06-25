@@ -1,7 +1,7 @@
 ﻿[cmdletbinding()]
 Param([parameter(mandatory=$true)][string]$build_id)
 # you need to specify the build number
-#$build_id = "20150507091513"
+#$build_id = "20150618011509"
 
 $art_all = 0
 $art_failed = 0

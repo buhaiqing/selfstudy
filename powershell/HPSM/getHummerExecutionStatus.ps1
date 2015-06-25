@@ -3,7 +3,7 @@
 #####################################################################################
 [cmdletbinding()]
 Param([parameter(mandatory=$true)][string]$build_id)
-#$build_id = "20150507091513"
+#$build_id = "20150618011509"
 $res = (Invoke-RestMethod "http://16.186.72.7/api/task_list?build=$build_id")| %{
 $passed = $_.passing_ratio.passed
 $failed_case = $_.passing_ratio.failed

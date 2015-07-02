@@ -1,4 +1,5 @@
-﻿[cmdletbinding()]
+﻿#requires -version 3.0
+[cmdletbinding()]
 Param([parameter(mandatory=$true)][string]$build_id)
 # you need to specify the build number
 #$build_id = "20150618011509"

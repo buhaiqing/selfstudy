@@ -1,3 +1,4 @@
+#requires -version 3.0
  function SendAlertEmail{
   param(
   [string] $Subject,

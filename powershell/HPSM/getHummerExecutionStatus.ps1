@@ -14,4 +14,5 @@ $_| Add-Member -MemberType NoteProperty -Name case_number $case_number
 $_| Add-Member -MemberType NoteProperty -Name passed% $passing_ratio
 
 $_
-}|?{$_.ci -eq 'Yes'} |Sort-Object -Property group,category,sub_catetory,passed%,duration|Out-GridView
+}|?{$_.ci -eq 'Yes'} |Sort-Object -Property group,category,sub_catetory,passed%,duration|Out-GridView -PassThru
+$res | ft -AutoSize 

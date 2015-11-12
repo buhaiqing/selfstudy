@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.firefox.FirefoxDriver
 import org.openqa.selenium.ie.InternetExplorerDriver
+import org.openqa.selenium.phantomjs.PhantomJSDriver
 import org.openqa.selenium.remote.DesiredCapabilities
 import org.openqa.selenium.support.ui.ExpectedConditions
 import org.openqa.selenium.support.ui.WebDriverWait
@@ -84,6 +85,25 @@ class baiduSpec extends Specification
     {
         setup:
         def driver = new ChromeDriver()
+        driver.get("http://www.baidu.com")
+        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS)
+        when:
+        driver.findElement(By.name("wd")).sendKeys("hp service Manager")
+        driver.findElement(By.id("su")).click()
+        WebDriverWait wait = new WebDriverWait(driver, 3);
+        wait.until(ExpectedConditions.titleContains("hp"))
+        then:
+        driver.getTitle().contains("hp")
+        cleanup:
+        driver.quit()
+    }
+
+    def "search keyword in PhantomJs"(){
+        setup:
+        DesiredCapabilities capabilities =  DesiredCapabilities.phantomjs()
+        capabilities.setJavascriptEnabled(true);
+        capabilities.setCapability("takesScreenshot", false);
+        def driver = new PhantomJSDriver(capabilities)
         driver.get("http://www.baidu.com")
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS)
         when:

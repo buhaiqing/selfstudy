@@ -6,6 +6,9 @@ import static org.junit.Assert.*;
 
 import scala.com.buhaiqing.chapter1.Person;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by buha on 11/25/2015.
  */
@@ -18,4 +21,6 @@ public class PersonTest {
         assertEquals(p.getAge(), 37);
         p.run();
     }
+
+   
 }

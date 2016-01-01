@@ -8,9 +8,9 @@
     Send-MailMessage -SmtpServer "smtp3.hp.com" -From "PDL_SPM_CI_Notification@hpe.com" -Subject $Subject -Body $Body -To "PDL_SPM_CI_Notification@hpe.com"
 }
 
-$data =[xml] (iwr http://smcm-jenkins-rhel7.hpswlabs.hp.com:8080/jenkins/computer/api/xml)
+$data =Invoke-RestMethod http://smcm-jenkins-rhel7.hpswlabs.hp.com:8080/jenkins/computer/api/json
 
-$list =@($data.computerSet.computer|? {$_.displayName -ne 'master' }|?{
+$list =@($data.computer|? {$_.displayName -ne 'master' }|?{
 
 $size = $_.monitorData."hudson.node_monitors.TemporarySpaceMonitor".size
 

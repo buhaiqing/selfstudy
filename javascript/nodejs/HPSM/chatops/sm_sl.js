@@ -19,17 +19,15 @@ if (!String.prototype.format) {
 function sendRequest(payload) {
     print(payload);
     var endpoint = "https://hooks.slack.com/services/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 ";
+    // var endpoint = "https://hooks.slack.com/services/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 ";
     var response = doHTTPRequest('POST', endpoint, [], payload);
 }
 
 function buildFieldItem(fields, k, v) {
-    var o = {
-        "title": "",
-        "value": "",
-        "short": false
-    };
+    var o = {};
     o["title"] = k;
     o["value"] = v;
+    o["short"] = false
     fields.push(o);
 }
 
@@ -38,7 +36,7 @@ function buildPlayload(incident_obj) {
     var incident_id = incident_obj['number'];
     var request_by = incident_obj['opened.by'];
     var title = incident_obj['brief.description'];
-    var description = incident_obj['action'];
+    var description = incident_obj['action']["0"];
     var affected_service = incident_obj['affected.item'];
     var assignment_group = incident_obj['assignment'];
     var assignee = incident_obj['assignee.name'];
@@ -48,8 +46,9 @@ function buildPlayload(incident_obj) {
         var po = {};
         po['username'] = "sm-bot";
         po["text"] = "A new major incident {0} is created {1}".format(incident_id, request_by);
-        var attachments ={};
-        po["attachments"] = attachments;
+        var attachments = {};
+        po["attachments"] = [];
+        po["attachments"].push(attachments);
         attachments['color'] = "#36a64f";
         attachments['text'] = title;
 
@@ -58,7 +57,7 @@ function buildPlayload(incident_obj) {
         buildFieldItem(fields, "Primary Affected Service", affected_service);
         buildFieldItem(fields, "Assignment Group", assignment_group);
         buildFieldItem(fields, "Assignee", assignee);
-        attachments['text'] = fields;
+        attachments['fields'] = fields;
         payload = system.library.JSON.json().stringify(po);
         //         payload =
         //             '{ \

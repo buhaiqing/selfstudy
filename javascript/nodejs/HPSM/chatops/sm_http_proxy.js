@@ -1,3 +1,44 @@
+// var endpoint="https://hooks.slack.com/services/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 ";
+// var payload='{"text": "<http://www.qq.com|tencent page> ","icon_emoji": ":ghost:", "username": "sm-devops-bot"}';
+// var response = doHTTPRequest('POST', endpoint, [], payload);
+
+// First, checks if it isn't implemented yet.
+if (!String.prototype.format) {
+  String.prototype.format = function() {
+    var args = arguments;
+    return this.replace(/{(\d+)}/g, function(match, number) { 
+      return typeof args[number] != 'undefined'
+        ? args[number]
+        : match
+      ;
+    });
+  };
+}
+
+//var result = '{0} is dead, but {1} is alive!   {0} {2}'.format('ASP', 'ASP.NET','buhaiqing');
+//print(result);
+
 var endpoint="https://hooks.slack.com/services/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 ";
-var payload='{"text": "<http://www.qq.com|tencent page> ","icon_emoji": ":ghost:", "username": "sm-devops-bot"}';
+var priority = "High"
+var payload='{ \
+    "attachments": [ \
+        { \
+            "color": "#36a64f", \
+            "text": "A new incident is created by Falcon", \
+            "fields": [ \
+                { \
+                    "title": "Priority", \
+                    "value": "{0}", \
+                    "short": false \
+                }, \
+				{ \
+				"title": "Assignee", \
+                "value": "<http://www.bing.com|Bing in sm>", \
+                "short": false \
+				} \
+            ] \
+        } \
+    ] \
+}'.format(priority);
+
 var response = doHTTPRequest('POST', endpoint, [], payload);

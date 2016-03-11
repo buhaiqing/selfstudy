@@ -19,15 +19,17 @@ if (!String.prototype.format) {
 function sendRequest(payload) {
     print(payload);
     // var endpoint = "https://hooks.slack.com/services/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 ";
-    var endpoint="https://hooks.slack.com/services/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";
+    var endpoint = "https://hooks.slack.com/services/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";
     var response = doHTTPRequest('POST', endpoint, [], payload);
 }
 
 function buildFieldItem(fields, k, v) {
-    var o = {};
-    o["title"] = k;
-    o["value"] = v;
-    o["short"] = false
+    var o = {
+        "title": k,
+        "value": v,
+        "short": true
+    };
+
     fields.push(o);
 }
 
@@ -36,72 +38,40 @@ function buildPlayload(incident_obj) {
     var incident_id = incident_obj['number'];
     var request_by = incident_obj['opened.by'];
     var title = incident_obj['brief.description'];
-    var description = incident_obj['action'].toArray();   
+    // var description = incident_obj['action']["0"];
     var affected_service = incident_obj['affected.item'];
     var assignment_group = incident_obj['assignment'];
     var assignee = incident_obj['assignee.name'];
 
     //  only enable when it is a major incident
-    if (!!incident_obj['major.incident']) {
-        var po = {};
-        po['username'] = "sm-bot";
-        po["text"] = "A new major incident {0} is created {1}".format(incident_id, request_by);
-        var attachments = {};
-        po["attachments"] = [];
-        po["attachments"].push(attachments);
-        attachments['color'] = "#36a64f";
-        attachments['text'] = title;
+    var po = {};
+    po['username'] = "sm-bot";
+    po["text"] = "A new major incident {0} is created {1}".format(incident_id, request_by);
+    var attachments = {};
+    po["attachments"] = [];
+    po["attachments"].push(attachments);
+    attachments['color'] = "good";
+    attachments['text'] = title;
 
-        var fields = [];
-        buildFieldItem(fields, "Description", description);
-        buildFieldItem(fields, "Primary Affected Service", affected_service);
-        buildFieldItem(fields, "Assignment Group", assignment_group);
-        buildFieldItem(fields, "Assignee", assignee);
-        attachments['fields'] = fields;
-        payload = system.library.JSON.json().stringify(po);
-        //         payload =
-        //             '{ \
-        //         "username": "sm-bot", \
-        //         "text":"A new major incident {0} is created {1}", \
-        //         "attachments": [ \
-        //             { \
-        //                 "color": "#36a64f", \
-        //                 "text": "{2}", \
-        //                 "fields": [ \
-        //                     { \
-        //                         "title": "Description", \
-        //                         "value": "{3}", \
-        //                         "short": false \
-        //                     }, \
-        //                     { \
-        //                         "title": "Primary Affected Service", \
-        //                         "value": "{4}", \
-        //                         "short": false \
-        //                     }, \
-        //                     { \
-        //                         "title": "Assignment Group", \
-        //                         "value": "{5}", \
-        //                         "short": false \
-        //                     }, \
-        //                     { \
-        //                     "title": "Assignee", \
-        //                     "value": "{6}", \
-        //                     "short": false \
-        //                     } \
-        //                 ] \
-        //             } \
-        //         ] \
-        // }'.format(incident_id, request_by, title, description, affected_service, assignment_group, assignee);
-    }
+    var fields = [];
+    // buildFieldItem(fields, "Description", description);
+    buildFieldItem(fields, "Primary Affected Service", affected_service);
+    buildFieldItem(fields, "Assignment Group", assignment_group);
+    buildFieldItem(fields, "Assignee", assignee);
+    attachments['fields'] = fields;
+    payload = system.library.JSON.json().stringify(po);
 
     return payload;
 }
 
 // in lib.slack
 function synctoSlack(incident_obj) {
-    print(!!incident_obj['major.incident']);
-    var payload = buildPlayload(incident_obj);
-    if (payload != null) {
-        sendRequest(payload);
+    // print(!!incident_obj['major.incident']);
+    if (!!incident_obj['major.incident']) {
+        var payload = buildPlayload(incident_obj);
+
+        if (payload != null) {
+            sendRequest(payload);
+        }
     }
 }

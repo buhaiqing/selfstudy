@@ -79,6 +79,7 @@
 				<configuration>
 					<useFile>false</useFile>
 					<includes>
+					<!-- Yes, the extensionis *.java ,not *.groovy -->
 						<include>**/*Spec.java</include>
 					</includes>
 				</configuration>

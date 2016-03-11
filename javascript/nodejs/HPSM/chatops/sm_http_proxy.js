@@ -20,15 +20,18 @@ if (!String.prototype.format) {
 
 var endpoint="https://hooks.slack.com/services/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 ";
 var priority = "High"
+var incident_id ="IM10001"
+var creater="Falcon";
 var payload='{ \
+	"username": "sm-bot", \
     "attachments": [ \
         { \
             "color": "#36a64f", \
-            "text": "A new incident is created by Falcon", \
+            "text": "A new incident {0} is created by {1}", \
             "fields": [ \
                 { \
                     "title": "Priority", \
-                    "value": "{0}", \
+                    "value": "{2}", \
                     "short": false \
                 }, \
 				{ \
@@ -39,6 +42,6 @@ var payload='{ \
             ] \
         } \
     ] \
-}'.format(priority);
+}'.format(incident_id,creater,priority);
 
 var response = doHTTPRequest('POST', endpoint, [], payload);

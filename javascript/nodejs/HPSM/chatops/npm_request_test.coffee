@@ -7,9 +7,7 @@ DEFAULT_SM_SERVER_PORT = "13080"
 
 #BASE_URL = "http://#{DEFAULT_SM_SERVER}:#{DEFAULT_SM_SERVER_PORT}/SM/9/rest"
 class RestMethod
-  constructor: (@smserver, @port, @user = "System.Admin", @password = "") ->
-    @smserver ?= DEFAULT_SM_SERVER
-    @port ?= DEFAULT_SM_SERVER_PORT
+  constructor: (@smserver = DEFAULT_SM_SERVER, @port = DEFAULT_SM_SERVER_PORT, @user = "System.Admin", @password = "") ->
     @baseurl = "http://#{@smserver}:#{@port}/SM/9/rest"
 
   getResp: (url, callback = null) ->
@@ -99,7 +97,7 @@ incident.create(
 , (jobj)->
   incident_id = jobj['Incident']['IncidentID']
   console.log "a major incident #{incident_id} is created"
-  incident.get(incident_id, (o)->console.log(o))
+  incident.incident_id = incident_id
   incident.update(
     "Incident":
       "JournalUpdates": [ "test11"]

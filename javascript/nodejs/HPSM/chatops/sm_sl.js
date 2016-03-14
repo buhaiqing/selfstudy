@@ -18,8 +18,8 @@ if (!String.prototype.format) {
 
 function sendRequest(payload) {
     print(payload);
-    // var endpoint = "https://hooks.slack.com/services/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 ";
-    var endpoint = "https://hooks.slack.com/services/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";
+    var endpoint = "https://hooks.slack.com/services/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 ";
+    // var endpoint = "https://hooks.slack.com/services/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";
     var response = doHTTPRequest('POST', endpoint, [], payload);
 }
 
@@ -38,7 +38,7 @@ function buildPlayload(incident_obj) {
     var incident_id = incident_obj['number'];
     var request_by = incident_obj['opened.by'];
     var title = incident_obj['brief.description'];
-    // var description = incident_obj['action']["0"];
+    var description = incident_obj['action']["0"];
     var affected_service = incident_obj['affected.item'];
     var assignment_group = incident_obj['assignment'];
     var assignee = incident_obj['assignee.name'];
@@ -54,7 +54,7 @@ function buildPlayload(incident_obj) {
     attachments['text'] = title;
 
     var fields = [];
-    // buildFieldItem(fields, "Description", description);
+    buildFieldItem(fields, "Description", description);
     buildFieldItem(fields, "Primary Affected Service", affected_service);
     buildFieldItem(fields, "Assignment Group", assignment_group);
     buildFieldItem(fields, "Assignee", assignee);

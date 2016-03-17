@@ -11,15 +11,15 @@ if (!String.prototype.format) {
         });
     };
 }
-
+var  WHITE_SPACE =' ';
 //var result = '{0} is dead, but {1} is alive!   {0} {2}'.format('ASP', 'ASP.NET','buhaiqing');
 //print(result);
 
 
 function sendRequest(payload) {
     print(payload);
-    var endpoint = "https://hooks.slack.com/services/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 ";
-    // var endpoint = "https://hooks.slack.com/services/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";
+    //var endpoint = "https://hooks.slack.com/services/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 ";
+    var endpoint = "https://hooks.slack.com/services/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";
     var response = doHTTPRequest('POST', endpoint, [], payload);
 }
 
@@ -34,32 +34,25 @@ function buildFieldItem(fields, k, v) {
 }
 
 function buildPlayload(incident_obj) {
-    var payload = null;
-    var incident_id = incident_obj['number'];
-    var request_by = incident_obj['opened.by'];
-    var title = incident_obj['brief.description'];
-    var description = incident_obj['action']["0"];
-    var affected_service = incident_obj['affected.item'];
-    var assignment_group = incident_obj['assignment'];
-    var assignee = incident_obj['assignee.name'];
+    var sminfo ={
+     server: system.functions.sysinfo_get("ServerNetAddress"),
+     port: system.functions.sysinfo_get("ServerNetPort")
+    }
+    sminfo_encoded = base64Encode(system.library.JSON.json().stringify(sminfo));
+    
+    var payload_text = '!create-room' + WHITE_SPACE + sminfo_encoded + WHITE_SPACE;
 
-    //  only enable when it is a major incident
-    var po = {};
-    po['username'] = "sm-bot";
-    po["text"] = "A new major incident {0} is created {1}".format(incident_id, request_by);
-    var attachments = {};
-    po["attachments"] = [];
-    po["attachments"].push(attachments);
-    attachments['color'] = "good";
-    attachments['text'] = title;
-
-    var fields = [];
-    buildFieldItem(fields, "Description", description);
-    buildFieldItem(fields, "Primary Affected Service", affected_service);
-    buildFieldItem(fields, "Assignment Group", assignment_group);
-    buildFieldItem(fields, "Assignee", assignee);
-    attachments['fields'] = fields;
-    payload = system.library.JSON.json().stringify(po);
+    var op = lib.operatorUtil.getOperatorByName(incident_obj['assignee.name']);
+    var incident_info = {
+        id: incident_obj['number'],
+        name: '',
+        title: incident_obj['brief.description'],
+        description: incident_obj['action']["0"],
+        assignee: op['email']
+    };
+    incident_info_encoded = base64Encode(system.library.JSON.json().stringify(incident_info));
+    payload_text = payload_text + incident_info_encoded;
+    payload = system.library.JSON.json().stringify({text:payload_text});
 
     return payload;
 }

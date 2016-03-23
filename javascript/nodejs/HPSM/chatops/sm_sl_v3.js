@@ -30,13 +30,15 @@ function buildPlayload(incident_obj) {
     var payload_text = '!create-room' + WHITE_SPACE;
 
     var op = lib.operatorUtil.getOperatorByName(incident_obj['assignee.name']);
+    var op1 = lib.operatorUtil.getOperatorByName(incident_obj['owner']);
+
     var incident_info = {
         metaInfo: sminfo,
         id: incident_obj['number'],
         name: '',
         title: incident_obj['brief.description'],
         description: incident_obj['action']["0"],
-        assignee: op['email']
+        users: [op['email'],op1['email']]
     };
     // utf-8 encode
     incident_info_encoded = lib.Base64Encoder.encode(system.library.JSON.json().stringify(incident_info));

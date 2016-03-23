@@ -31,6 +31,13 @@ function buildPlayload(incident_obj) {
 
     var op = lib.operatorUtil.getOperatorByName(incident_obj['assignee.name']);
     var op1 = lib.operatorUtil.getOperatorByName(incident_obj['owner']);
+    var invitees = [];
+    if(op!=null){
+      invitees.push(op['email']);
+    }
+    if(op1!=null){
+      invitees.push(op1['email']);
+    }
 
     var incident_info = {
         metaInfo: sminfo,
@@ -38,8 +45,11 @@ function buildPlayload(incident_obj) {
         name: '',
         title: incident_obj['brief.description'],
         description: incident_obj['action']["0"],
-        users: [op['email'],op1['email']]
+        users: invitees,
+        affected_service: incident_obj['affected.item'],
+        affected_ci: incident_obj['logical.name']
     };
+    //print(system.library.JSON.json().stringify(incident_info));
     // utf-8 encode
     incident_info_encoded = lib.Base64Encoder.encode(system.library.JSON.json().stringify(incident_info));
     payload_text = payload_text + incident_info_encoded;

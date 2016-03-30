@@ -7,9 +7,10 @@ var WHITE_SPACE = ' ';
 //    id: "number",
 //    invitees:['owner'],
 //    other_fields:{
-//
+//       Status:'problem.status'
 //    },
-//    description_format:"${id} and  ${title}"
+//    description:"",  // reserved for Slack channel purpose
+//    description_format:"${id} and  ${title}" // customized format for Slack channel purpose
 //};
 // ======================================
 var webhook_url = "";
@@ -35,7 +36,7 @@ var slack = {
     commands:{
         "create-room":{
             process_mandatoryfields:function (incident_obj, options) {
-                var fields = _.omit(options, 'webhook_url', 'invitees', 'other_fields', 'description_format');
+                var fields = _.omit(options, 'webhook_url', 'invitees', 'other_fields', 'description_format','description');
 
                 var keys = _.keys(fields);
                 var values = _.values(fields);
@@ -50,6 +51,12 @@ var slack = {
                 if (this.result.room_name.length > 21) {
                     this.result.room_name.substring(this.result.room_name.length - 21)
                 }
+//                in web.xml
+//                    <init-param>
+//                      <param-name>querySecurity</param-name>
+//                      <param-value>false</param-value>
+//                    </init-param>
+
                 this.result.docengine_url = lib.urlCreator.getURLFromQuery('probsummary', 'number="' + this.result.id + '"', '');
             },
             process_invitees:function (incident_obj, options) {
@@ -91,7 +98,8 @@ var slack = {
                 }
 
 //                print(description);
-                _.extend(this.result, {description:description});
+                this.result.description = description;
+//                _.extend(this.result, {description:description});
 
             },
             buildPayload:function (incident_obj, options) {

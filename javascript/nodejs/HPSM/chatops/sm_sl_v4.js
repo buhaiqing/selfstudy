@@ -9,14 +9,14 @@ var WHITE_SPACE = ' ';
 //    other_fields:{
 //
 //    },
-//    description_format:"${number} and  ${brief.description}"
+//    description_format:"${id} and  ${title}"
 //};
 // ======================================
+var webhook_url = "";
 var slack = {
     payload:null,
     options:null,
     result:null,
-    webhook_url:null,
     pretty_print:function (obj) {
         var output = "";
         for (var property in obj) {
@@ -28,14 +28,14 @@ var slack = {
         print(payload);
         // for example:
         //    var endpoint = "https://hooks.slack.com/services/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";
-        var endpoint = this.webhook_url;
-        var response = doHTTPRequest('POST', endpoint, [], this.payload);
+        var endpoint = webhook_url;
+        var response = doHTTPRequest('POST', endpoint, [], payload);
     },
     //  array of supported commands
     commands:{
         "create-room":{
             process_mandatoryfields:function (incident_obj, options) {
-                var fields = _.omit(options, 'webhook_url', 'invitees', 'other_fields', 'description');
+                var fields = _.omit(options, 'webhook_url', 'invitees', 'other_fields', 'description_format');
 
                 var keys = _.keys(fields);
                 var values = _.values(fields);
@@ -81,21 +81,24 @@ var slack = {
             },
             process_description:function () {
                 // TODO: replace description format
-//              Example: " ${number} and  ${brief.description} "
-                this.result.description = this.options.description_format;
-                var groups = this.result.description.match(/(\$\{.*?\})/g);
+//              Example: " ${id} and  ${title} "
+                var description = this.options.description_format;
+                var groups = description.match(/(\$\{.*?\})/g);
                 for (var i in groups) {
                     var group = groups[i];
                     var key = group.replace(/[${}]/g, '');
-                    this.result.description = this.result.description.replace(group, this.result[key]);
+                    description = description.replace(group, this.result[key]);
                 }
+
+//                print(description);
+                _.extend(this.result, {description:description});
 
             },
             buildPayload:function (incident_obj, options) {
-                this.webhook_url = options['webhook_url'];
                 this.options = options;
                 var payload_text = '!create-room' + WHITE_SPACE;
                 this.result = {};
+                webhook_url = options['webhook_url'];
 
                 // metaInfo
                 this.result.metaInfo = {

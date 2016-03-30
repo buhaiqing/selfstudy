@@ -9,7 +9,7 @@ var WHITE_SPACE = ' ';
 //    other_fields:{
 //
 //    },
-//    description_format:""
+//    description_format:"${number} and  ${brief.description}"
 //};
 // ======================================
 var slack = {
@@ -52,7 +52,7 @@ var slack = {
                 }
                 this.result.docengine_url = lib.urlCreator.getURLFromQuery('probsummary', 'number="' + this.result.id + '"', '');
             },
-            proces_invitees:function (incident_obj, options) {
+            process_invitees:function (incident_obj, options) {
                 this.result.users = options.invitees;
 //                var fields = options.invitees;
 //                this.result.invitees = [];
@@ -106,7 +106,7 @@ var slack = {
 
                 this.process_mandatoryfields(incident_obj, options);
                 this.process_otherfields(incident_obj, options);
-                this.proces_invitees(incident_obj, options);
+                this.process_invitees(incident_obj, options);
                 this.process_description();
 
                 // utf-8 encode

@@ -1,18 +1,5 @@
-// var endpoint="https://hooks.slack.com/services/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 ";
-// var payload='{"text": "<http://www.qq.com|tencent page> ","icon_emoji": ":ghost:", "username": "sm-devops-bot"}';
-// var response = doHTTPRequest('POST', endpoint, [], payload);
-
-// First, checks if it isn't implemented yet.
-if (!String.prototype.format) {
-    String.prototype.format = function () {
-        var args = arguments;
-        return this.replace(/{(\d+)}/g, function (match, number) {
-            return typeof args[number] != 'undefined' ? args[number] : match;
-        });
-    };
-}
-var WHITE_SPACE = ' ';
 var _ = lib.Underscore.require();
+var WHITE_SPACE = ' ';
 // ======================================
 //var options={
 //    webhook_url:"https://hooks.slack.com/services/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",

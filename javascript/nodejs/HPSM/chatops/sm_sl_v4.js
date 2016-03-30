@@ -48,6 +48,7 @@ var slack = {
                 }
 
                 this.result.room_name = 'M' + incident_obj['number'];
+                // room name must be 21 characters or less, lower case, and cannot contain spaces and periods
                 if (this.result.room_name.length > 21) {
                     this.result.room_name.substring(this.result.room_name.length - 21)
                 }

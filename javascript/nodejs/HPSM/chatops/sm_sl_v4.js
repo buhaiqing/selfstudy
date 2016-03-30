@@ -9,6 +9,7 @@ var WHITE_SPACE = ' ';
 //    other_fields:{
 //       Status:'problem.status'
 //    },
+//    docengine_url:"",
 //    description:"",  // reserved for Slack channel purpose
 //    description_format:"${id} and  ${title}" // customized format for Slack channel purpose
 //};

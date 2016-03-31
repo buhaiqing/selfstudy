@@ -45,7 +45,7 @@ var slack = {
 
                 for (var i in maps) {
                     var entry = maps[i];
-                    this.result[entry[0]] = incident_obj[entry[1]];
+                    this.result[entry[0]] = system.functions.str( incident_obj[entry[1]]);
                 }
 
                 this.result.room_name = 'M' + incident_obj['number'];
@@ -85,7 +85,7 @@ var slack = {
 
                 for (var i in maps) {
                     var entry = maps[i];
-                    this.result[entry[0]] = incident_obj[entry[1]];
+                    this.result[entry[0]] = system.functions.str( incident_obj[entry[1]]);
                 }
             },
             process_description:function () {

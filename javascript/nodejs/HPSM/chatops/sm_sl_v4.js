@@ -1,4 +1,6 @@
 var _ = lib.Underscore.require();
+var $ = lib.c.$;
+
 var WHITE_SPACE = ' ';
 // ======================================
 //var options={
@@ -37,7 +39,7 @@ var slack = {
     commands:{
         "create-room":{
             process_mandatoryfields:function (incident_obj, options) {
-                var fields = _.omit(options, 'webhook_url', 'invitees', 'other_fields', 'description_format','description');
+                var fields = _.omit(options, 'webhook_url', 'invitees', 'other_fields', 'description_format', 'description');
 
                 var keys = _.keys(fields);
                 var values = _.values(fields);
@@ -45,7 +47,7 @@ var slack = {
 
                 for (var i in maps) {
                     var entry = maps[i];
-                    this.result[entry[0]] = system.functions.str( incident_obj[entry[1]]);
+                    this.result[entry[0]] = system.functions.str(incident_obj[entry[1]]);
                 }
 
                 this.result.room_name = 'M' + incident_obj['number'];
@@ -59,7 +61,18 @@ var slack = {
 //                      <param-value>false</param-value>
 //                    </init-param>
 
-                this.result.docengine_url = lib.urlCreator.getURLFromQuery('probsummary', 'number="' + this.result.id + '"', '');
+                var filename = system.functions.filename(incident_obj);
+                var getPrimaryKeyName = function () {
+                    var dbdictService = $("#dbdictService");
+                    var dbdict = dbdictService.getValidDbdict(filename);
+                    var uniqueKeys = dbdictService.getPrimaryKey(dbdict["key"]);
+                    var key = uniqueKeys.toArray()[1].replace(/[${}]/g, '');
+                    var tmp = key.split(',');
+                    var primaryKey = tmp[tmp.length - 1];
+                    primaryKey = primaryKey.replace(/["]/g, '');
+                    return primaryKey;
+                }
+                this.result.docengine_url = lib.urlCreator.getURLFromQuery(filename, getPrimaryKeyName() + '="' + this.result.id + '"', '');
             },
             process_invitees:function (incident_obj, options) {
                 this.result.users = options.invitees;
@@ -85,7 +98,7 @@ var slack = {
 
                 for (var i in maps) {
                     var entry = maps[i];
-                    this.result[entry[0]] = system.functions.str( incident_obj[entry[1]]);
+                    this.result[entry[0]] = system.functions.str(incident_obj[entry[1]]);
                 }
             },
             process_description:function () {

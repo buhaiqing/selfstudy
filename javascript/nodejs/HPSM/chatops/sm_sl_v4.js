@@ -72,7 +72,12 @@ var slack = {
                     primaryKey = primaryKey.replace(/["]/g, '');
                     return primaryKey;
                 }
-                this.result.docengine_url = lib.urlCreator.getURLFromQuery(filename, getPrimaryKeyName() + '="' + this.result.id + '"', '');
+				var html2Escape = function (sHtml) {
+					return sHtml.replace(/[<>&"]/g,function(c){return {'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c];});
+				}
+				                
+                this.result.docengine_url = html2Escape(lib.urlCreator.getURLFromQuery(filename, getPrimaryKeyName() + '="' + this.result.id + '"', ''));
+                print(this.result.docengine_url);
             },
             process_invitees:function (incident_obj, options) {
                 this.result.users = options.invitees;

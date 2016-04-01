@@ -34,7 +34,7 @@ var slack = {
         //    var endpoint = "https://hooks.slack.com/services/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";
         var endpoint = webhook_url;
         var response = doHTTPRequest('POST', endpoint, [], payload);
-		print(response);
+        print(response);
     },
     //  array of supported commands
     commands:{
@@ -73,28 +73,28 @@ var slack = {
                     primaryKey = primaryKey.replace(/["]/g, '');
                     return primaryKey;
                 }
-				var html2Escape = function (sHtml) {
-					return sHtml.replace(/[<>&"]/g,function(c){return {'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c];});
-				}
-				                
+                // var html2Escape = function (sHtml) {
+                //     return sHtml.replace(/[<>&"]/g,function(c){return {'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c];});
+                // }
+                                
                 this.result.docengine_url = lib.Base64Encoder.encode(lib.urlCreator.getURLFromQuery(filename, getPrimaryKeyName() + '="' + this.result.id + '"', ''));
                 print(this.result.docengine_url);
             },
             process_invitees:function (incident_obj, options) {
-                this.result.users = options.invitees;
-//                var fields = options.invitees;
-//                this.result.invitees = [];
-//
-//                for (var i in fields) {
-//                    k = fields[i];
-//                    if (-1 !== _.indexOf(fields, k)) {
-//                        var op = lib.operatorUtil.getOperatorByName(incident_obj[k]);
-//                        if (op !== null) {
-//                            this.result.invitees.push(op['email']);
-//                        }
-//                    }
-//                }
+                // this.result.users = options.invitees;
+               var fields = options.invitees;
+               this.result.users = [];
 
+               for (var i in fields) {
+                   k = fields[i];
+                   if (-1 !== _.indexOf(fields, k)) {
+                       var op = lib.operatorUtil.getOperatorByName(incident_obj[k]);
+                       if (op !== null) {
+                           this.result.users.push(op['email']);
+                       }
+                   }
+               }
+               print(this.result.users);
             },
             process_otherfields:function (incident_obj, options) {
                 var fields = options.other_fields;

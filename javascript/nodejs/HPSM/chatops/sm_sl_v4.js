@@ -34,6 +34,7 @@ var slack = {
         //    var endpoint = "https://hooks.slack.com/services/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";
         var endpoint = webhook_url;
         var response = doHTTPRequest('POST', endpoint, [], payload);
+		print(response);
     },
     //  array of supported commands
     commands:{
@@ -76,7 +77,7 @@ var slack = {
 					return sHtml.replace(/[<>&"]/g,function(c){return {'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c];});
 				}
 				                
-                this.result.docengine_url = html2Escape(lib.urlCreator.getURLFromQuery(filename, getPrimaryKeyName() + '="' + this.result.id + '"', ''));
+                this.result.docengine_url = lib.Base64Encoder.encode(lib.urlCreator.getURLFromQuery(filename, getPrimaryKeyName() + '="' + this.result.id + '"', ''));
                 print(this.result.docengine_url);
             },
             process_invitees:function (incident_obj, options) {

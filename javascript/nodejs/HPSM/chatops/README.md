@@ -10,7 +10,7 @@
                    <init-param>
                      <param-name>querySecurity</param-name>
                      <param-value>false</param-value>
-                   </init-param>`
+                   </init-param>
 
 2. add addtional configuration sm.ini if your network access is via http proxy. for example:
 

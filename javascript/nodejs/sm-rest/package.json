@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "New rest library for HP Service Manager",
   "scripts": {
-    "test": "test"
+    "test": "echo hello world"
   },
   "dependencies":{
     "chai": "> 1.0",

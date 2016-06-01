@@ -6,9 +6,7 @@
     "test": "echo hello world"
   },
   "dependencies":{
-    "chai": "> 1.0",
-	"mocha" : "> 1.0",
-	"underscore" : "> 1.4" 
+    
   },
   "repository": "",
   "author": "Bu Hai-Qing (hai-qing.bu@hp.com)",
